@@ -28,8 +28,8 @@ public class Pesquisador implements Runnable {
 			}
 		}
 		else {
-			if(caminho.getName().compareToIgnoreCase(nomeProcurado) == 0) {
-				System.out.println("Arquivo " + caminho.getName() + " achado no local " + caminho.getAbsolutePath());
+			if(caminho.getName().contains(nomeProcurado)) {
+				System.out.println("Achado arquivo no local " + caminho.getAbsolutePath());
 				task.arquivoAchado();
 			}
 		}
