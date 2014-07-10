@@ -1,4 +1,4 @@
-package PesquisaConcorrenteEmDisco;
+package Pesquisa;
 
 import javax.swing.JOptionPane;
 
@@ -10,5 +10,4 @@ public class Main {
 		Coordenador coord = new Coordenador(nomeDoArquivo, diretorioDePesquisa);
 		coord.start();
 	}
-
 }

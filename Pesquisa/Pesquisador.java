@@ -1,4 +1,4 @@
-package PesquisaConcorrenteEmDisco;
+package Pesquisa;
 
 import java.io.File;
 
@@ -8,10 +8,11 @@ public class Pesquisador implements Runnable {
 	private String nomeProcurado;
 	private File caminho;
 	
-	public Pesquisador(String nomeDoArquivo, String caminho, Task task) {
+	public Pesquisador(String nomeDoArquivo, File caminho, Task task) {
 		nomeProcurado = nomeDoArquivo;
 		this.task = task;
-		this.caminho = new File(caminho);
+		new Thread(task);
+		this.caminho = caminho;
 	}
 
 	@Override
@@ -22,8 +23,8 @@ public class Pesquisador implements Runnable {
 	
 	private void buscar() {
 		if(caminho.isDirectory()) {
-			String[] arquivos = caminho.list();
-			for(String atual : arquivos) {
+			File[] arquivos = caminho.listFiles();
+			for(File atual : arquivos) {
 				task.setTask(atual);
 			}
 		}

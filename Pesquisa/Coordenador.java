@@ -1,4 +1,7 @@
-package PesquisaConcorrenteEmDisco;
+package Pesquisa;
+
+import java.io.File;
+
 
 public class Coordenador extends Thread {
 	
@@ -8,7 +11,8 @@ public class Coordenador extends Thread {
 	public Coordenador(String nomeDoArquivo, String caminho) {
 		this.nomeDoArquivo = nomeDoArquivo;
 		task = new Task();
-		task.setTask(caminho);
+		task.setTask(new File(caminho));
+		new Thread(task).start();
 	}
 	
 	public void run() {
