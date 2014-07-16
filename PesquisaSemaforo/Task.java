@@ -3,7 +3,6 @@ package PesquisaSemaforo;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Semaphore;
 
 public class Task implements Runnable {
@@ -12,14 +11,12 @@ public class Task implements Runnable {
 	private List<File> encontrados;
 	private boolean buscaFinalizada;
 	private Semaphore semaforo;
-	ArrayBlockingQueue<File> queue;
 
-	public Task(Semaphore semaforo, ArrayBlockingQueue<File> queue) {
+	public Task(Semaphore semaforo) {
 		caminhos = new ArrayList<File>();
 		encontrados = new ArrayList<File>();
 		buscaFinalizada = false;
 		this.semaforo = semaforo;
-		this.queue = queue;
 	}
 
 	public synchronized File getTask() throws Exception {
