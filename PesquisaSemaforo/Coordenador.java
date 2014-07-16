@@ -11,10 +11,11 @@ public class Coordenador extends Thread {
 
 	public Coordenador(String nomeDoArquivo, String caminho) {
 		this.nomeDoArquivo = nomeDoArquivo;
-		task = new Task();
+		semaphore = new Semaphore(6);
+		task = new Task(semaphore);
 		new Thread(task).start();
 		task.setTask(new File(caminho));
-		semaphore = new Semaphore(6);
+		
 	}
 
 	public void run() {
