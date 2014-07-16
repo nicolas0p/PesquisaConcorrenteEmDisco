@@ -28,7 +28,8 @@ public class Pesquisador implements Runnable {
 			} catch (InterruptedException e) {
 			}
 			novaBusca();
-			System.out.println("Pesquisador iniciado para o caminho " + caminho.getAbsolutePath());
+			System.out.println("Pesquisador iniciado para o caminho "
+					+ caminho.getAbsolutePath());
 			if (caminho.isDirectory()) {
 				File[] arquivos = caminho.listFiles();
 				if (arquivos != null) {
@@ -53,14 +54,14 @@ public class Pesquisador implements Runnable {
 	private void novaBusca() {
 		while (task.size() < 1) {
 			try {
-				caminho = task.getTask();
-			} catch (Exception e1) {
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e) {
-				}
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
 			}
-
+		}
+		try {
+			caminho = task.getTask();
+		} catch (Exception e1) {
+			novaBusca();
 		}
 	}
 

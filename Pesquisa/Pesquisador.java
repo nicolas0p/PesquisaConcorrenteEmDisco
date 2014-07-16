@@ -11,7 +11,6 @@ public class Pesquisador implements Runnable {
 	public Pesquisador(String nomeDoArquivo, File caminho, Task task) {
 		nomeProcurado = nomeDoArquivo;
 		this.task = task;
-		new Thread(task);
 		this.caminho = caminho;
 	}
 
@@ -19,6 +18,7 @@ public class Pesquisador implements Runnable {
 	public void run() {
 		System.out.println("Pesquisador iniciado para o caminho " + caminho.getAbsolutePath());
 		buscar();
+		
 	}
 	
 	private void buscar() {
@@ -35,5 +35,4 @@ public class Pesquisador implements Runnable {
 			}
 		}
 	}
-
 }

@@ -11,12 +11,14 @@ public class Task implements Runnable {
 	private List<File> encontrados;
 	private boolean buscaFinalizada;
 	private Semaphore semaforo;
+	private Coordenador coordenador;
 
-	public Task(Semaphore semaforo) {
+	public Task(Coordenador coordenador, Semaphore semaforo) {
 		caminhos = new ArrayList<File>();
 		encontrados = new ArrayList<File>();
 		buscaFinalizada = false;
 		this.semaforo = semaforo;
+		this.coordenador = coordenador;
 	}
 
 	public synchronized File getTask() throws Exception {
@@ -30,10 +32,11 @@ public class Task implements Runnable {
 		caminhos.add(adicionar);
 	}
 
-	public void arquivoAchado(File encontrado) {
+	public synchronized void arquivoAchado(File encontrado) {
 		encontrados.add(encontrado);
 		if(caminhos.size() == 0 && semaforo.availablePermits() == 6) {
 			buscaFinalizada = true;
+			coordenador.resultadoDaPesquisa(encontrados);
 		}
 	}
 
