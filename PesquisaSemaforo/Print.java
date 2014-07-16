@@ -1,13 +1,26 @@
 package PesquisaSemaforo;
 
-public class Print {
+import java.io.File;
+import java.util.NoSuchElementException;
+import java.util.concurrent.ArrayBlockingQueue;
+
+public class Print implements Runnable {
 	
-	private Task task;
+	private ArrayBlockingQueue<File> queue;
 	
-	public Print(Task task) {
-		this.task = task;
+	public Print(ArrayBlockingQueue<File> queue) {
+		this.queue = queue;
 	}
-	
-	
+
+	@Override
+	public void run() {
+		while(true) { //TODO arrumar isso
+		try {
+			File file = queue.remove();
+			System.out.println("Arquivo achado em: " + file.getAbsolutePath());
+		} catch(NoSuchElementException e) {
+		}
+	}
+	}
 	
 }

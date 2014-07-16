@@ -46,13 +46,12 @@ public class Pesquisador implements Runnable {
 					task.arquivoAchado(caminho);
 				}
 			}
-
 			semaphore.release();
 		}
 	}
 
 	private void novaBusca() {
-		while (task.size() < 1) {
+		while (task.size() == 0 && !task.buscaFinalizada()) {
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
@@ -63,6 +62,6 @@ public class Pesquisador implements Runnable {
 		} catch (Exception e1) {
 			novaBusca();
 		}
-	}
+	} //TODO array blocking queue
 
 }

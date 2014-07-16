@@ -2,6 +2,7 @@ package PesquisaSemaforo;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Semaphore;
 
 public class Coordenador extends Thread {
@@ -14,30 +15,17 @@ public class Coordenador extends Thread {
 	public Coordenador(String nomeDoArquivo, String caminho) {
 		this.nomeDoArquivo = nomeDoArquivo;
 		semaphore = new Semaphore(6);
-		task = new Task(this, semaphore);
+		ArrayBlockingQueue<File> queue = new ArrayBlockingQueue<File>(4);
+		task = new Task(semaphore, queue);
+		new Thread(new Print(queue));
 		new Thread(task).start();
 		task.setTask(new File(caminho));
 		alive = true;
-		
 	}
 
 	public void run() {
 		for (int i = 0; i < 12; ++i) {
 			new Thread(new Pesquisador(nomeDoArquivo, task, semaphore)).start();
 		}
-		while(alive) {
-			try {
-				sleep(100);
-			} catch (InterruptedException e) {
-			}
-		}
-	}
-
-	public void resultadoDaPesquisa(List<File> encontrados) {
-		System.out.println("==========================================PESQUISA FINALIZADA============================================");
-		for(File actual : encontrados) {
-			System.out.println("Arquivo encontrado em:" + actual.getAbsolutePath());
-		}
-		alive = false;
 	}
 }
